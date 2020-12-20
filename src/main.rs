@@ -1,5 +1,6 @@
 use actix_web::{web, App, HttpResponse, HttpServer};
 use serde::{Deserialize, Serialize};
+use std::env;
 
 async fn index() -> HttpResponse {
     #[derive(Debug, Serialize, Deserialize)]
@@ -17,8 +18,12 @@ async fn index() -> HttpResponse {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    // Get the port number to listen on.
+    let port = env::var("PORT").unwrap_or_else(|_| "8080".to_string());
+    let address = format!("{}:{}", "0.0.0.0", port);
+
     HttpServer::new(|| App::new().service(web::resource("/").route(web::get().to(index))))
-        .bind("127.0.0.1:8080")?
+        .bind(address)?
         .run()
         .await
 }
