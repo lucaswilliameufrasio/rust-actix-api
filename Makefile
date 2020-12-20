@@ -15,7 +15,7 @@ build-dev:
 
 ## Start app in dev mode and watch for file changes
 dev:
-	$ cargo watch -w run
+	$ cargo watch -x run
 .PHONY: dev
 
 ## Run tests
@@ -25,5 +25,5 @@ test:
 
 ## Run tests and watch for changes on files
 test-watch:
-	$ cargo watch -w test
+	$ cargo watch -x test
 .PHONY: test-watch
